@@ -14,8 +14,14 @@ Your flake.nix should look something like this:
 ```nix
 {
   inputs = {
-    niri.url = "github:sodiboo/niri-flake";
-    niri.inputs.niri-src.url = "github:YaLTeR/niri";
+    niri-src = {
+      url = "github:YaLTeR/niri";
+      flake = false;
+    }
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.niri-src.follows = "niri-src";
+    }
   };
 
   outputs = { self, nixpkgs, niri, ... }: {
